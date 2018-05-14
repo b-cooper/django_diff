@@ -2,9 +2,9 @@ from django.db import models
 from django.utils import timezone
 
 class DiffRequest(models.Model):
-  value = models.SmallIntegerField() # TODO: limit to 33300
-  number = models.PositiveSmallIntegerField(primary_key=True) # TODO: limit to 100
-  occurrences = models.PositiveIntegerField(default=0) # could be many occurrences
+  value = models.IntegerField() # NOTE: will never exceed 25164150
+  number = models.PositiveSmallIntegerField(primary_key=True) # NOTE: will never exceed 100
+  occurrences = models.PositiveIntegerField(default=0)
   last_datetime = models.DateTimeField()
 
   def save(self, *args, **kwargs):

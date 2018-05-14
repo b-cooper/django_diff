@@ -1,5 +1,8 @@
-from django.shortcuts import render
+
+import json
+from django.forms.models import model_to_dict
 from django.http import HttpResponse
+from django.shortcuts import render
 from difference.models import DiffRequest
 from difference.helpers import calculateDifference
 
@@ -8,14 +11,9 @@ def difference(request):
   print(number)
   try:
     obj = DiffRequest.objects.get(number=number)
-    print('ONE EXISTED')
     obj.save()
-    return HttpResponse(obj)
+    return HttpResponse(json.dumps(model_to_dict(obj), indent=4, sort_keys=True, default=str), content_type='application/json')
   except DiffRequest.DoesNotExist:
-    value = calculateDifference(number)
-    print('one did not exist')
-    obj = DiffRequest(number=number, value=number)
+    obj = DiffRequest(number=number, value=calculateDifference(number))
     obj.save()
-    return HttpResponse(obj)
-  # obj.save() if obj else created.save()
-  # print(DiffRequest.objects.all())
+    return HttpResponse(json.dumps(model_to_dict(obj), indent=4, sort_keys=True, default=str), content_type='application/json')

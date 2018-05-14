@@ -97,3 +97,5 @@ This will start an HTTP server on port 8000.
 
 You can query the service by sending a GET request to localhost:8000/difference?number=10
 Where 10 here is n.
+
+There is a simplistic React front end if you navigate to the root in a browser (localhost:8000/). It will fetch records on mount.
